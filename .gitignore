@@ -1,0 +1,11 @@
+# Ignore .exe files
+*.exe
+
+# Ignore Terraform state and lock files
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+.terraform/
+*.terraform
+*terraform.tfstate
+*terraform.tfstate.backup
