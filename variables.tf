@@ -17,3 +17,8 @@ variable "dynamodb_table" {
   description = "The name for the DynamoDB table used for state locking"
   type        = string
 }
+
+variable "gh_token" {
+  description = "The name for the DynamoDB table used for state locking"
+  type        = string
+}
