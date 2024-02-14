@@ -81,9 +81,11 @@ resource "aws_s3_bucket_versioning" "versioning_example" {
 ```
 
 > Create rest of the supporting files as shown in the screenshot
+```
 backend.tf          # Configure terraform remote backend in s3
 variables.tf        # Define the variable used
 terraform.tfvars    # Supply the variables
+```
 
 
 
