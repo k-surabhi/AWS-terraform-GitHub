@@ -29,9 +29,18 @@ Use the link for a guide: [environment setup for windows](https://kb.wisc.edu/ca
 
 Use the link for a guide: [ Terraform ](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
+### Steps to use terraform to create AWS resources
+
+1. Create a repository in github (AWS-terraform-GitHub) and clone it into your local host.
+2. Create a terraform file
+
+> main.tf  ##in the main.tf file, configure the AWS provider with your AWS credentials, then Save.
+3.
 
 
-## Description
+
+
+## Steps to execute the terraform code
 
 Clone the repo on your machine
 ```
