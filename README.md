@@ -31,23 +31,63 @@ Use the link for a guide: [ Terraform ](https://developer.hashicorp.com/terrafor
 
 ### Steps to use terraform to create AWS resources
 
-1. Create a repository in github (AWS-terraform-GitHub) and clone it into your local host.
-2. Create a terraform file
+<ol> 
+<li> Create a repository in github (AWS-terraform-GitHub) and clone it into your local host. </li>
 
-> main.tf  ##in the main.tf file, configure the AWS provider with your AWS credentials, then Save.
-3.
-
-
-
-
-## Steps to execute the terraform code
-
-Clone the repo on your machine
 ```
 git clone https://github.com/k-surabhi/AWS-terraform-GitHub
 ```
 
-Once the repo is cloned on your machine and you have the prerequisite full filled, follow these steps :
+<li> Create the terraform file, which looks as follows: </li>
+
+![alt text](/images/tree.png)
+
+</ol>
+
+> main.tf     #configure the aws cloud provider, s3 and ec2 resource
+
+```
+provider "aws" {
+  region = var.aws_region
+}
+
+resource "aws_instance" "devops" {
+  ami           = "ami-0766b4b472db7e3b9"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+
+resource "aws_s3_bucket" "terraform_state_bucket" {
+  bucket = var.bucket_name
+
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  tags = {
+    Environment = var.environment
+  }
+}
+
+resource "aws_s3_bucket_versioning" "versioning_example" {
+  bucket = aws_s3_bucket.terraform_state_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+```
+
+> Create rest of the supporting files as shown in the screenshot
+backend.tf          # Configure terraform remote backend in s3
+variables.tf        # Define the variable used
+terraform.tfvars    # Supply the variables
+
+
+
+## Steps to execute the terraform code
 
 
 ```
@@ -58,13 +98,13 @@ Terraform init #Download the required provider and configure the backend
 ```
 Terraform plan #What resource is is going to create
 ```
-![alt text](/images/plan2.png)
-
+![alt text](/images/image.png)
 
 ```
 Terraform apply #create the resources on the aws
 ```
-![alt text](/images/apply.png)
+![alt text](/images/apply1.png)
+
 
 Now, you can log into the console and see the resources create as shown in the screen shot below
 
@@ -79,7 +119,7 @@ Now, you can log into the console and see the resources create as shown in the s
 
 if you no longer require the resource you can remove the resources using terraform, use the command below :
 
-This will destory all the resources created
+This will destroy all the resources created
 
 ```
 terraform destroy 
@@ -98,6 +138,8 @@ Terraform destroy --target aws_instance.devops
 
 
 ## Github repository creation
+
+### Prerequisite
 To create the github repository you would require a github PAT token, which you can create by logging into your account
 
 > Github -> Settings -> Developer settings
@@ -105,6 +147,7 @@ To create the github repository you would require a github PAT token, which you 
 ![alt text](/images/token.png)
 
 > NOTE: Make sure to provide the access to create github repository permission while creating the token 
+![alt text](/images/permission.png)
 
 Since github token is secret so we can not write the github token in terraform code, therefore we will be using the environment variable
 
@@ -149,7 +192,16 @@ variable "gh_token" {
 }
 ```
 
-Once you will do the terraform apply the terraform will look for an env variable TF_VAR_gh_token and will create a git hub repository
+Once the prerequisite and code block is completed .Execute the following command.
+```
+terraform init   # download github provider
+terraform plan
+terraform apply
+```
+
+
+
+on apply the terraform will look for an env variable TF_VAR_gh_token and will create a git hub repository as shown in the screenshot below:
 
 
 ![alt text](/images/githubrepo.png)
