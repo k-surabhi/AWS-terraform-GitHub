@@ -7,11 +7,11 @@ The terraform state file will be stored s3 bucket.
 > Note: we could use the dynamo db for storing the terraform lock state however we are not using it as it is out of the scope for this project
 
 
-##Architecture diagram
+## Architecture diagram
 ![alt text](/images/architecture-Page-1.png)
 
-##Prerequisite
-###AWS Account:
+## Prerequisite
+### AWS Account:
 
 <ol>
 <li>Set up your AWS console</li>
@@ -21,7 +21,7 @@ The terraform state file will be stored s3 bucket.
 Use the link for a guide: [environment setup for windows](https://kb.wisc.edu/cae/page.php?id=24500)
 
 
-###Install Terraform:
+### Install Terraform:
 <ol>
 <li>Download and install Terraform from the official website.</li>
 <li>Add the Terraform binary to your system's PATH.</li>
@@ -31,7 +31,7 @@ Use the link for a guide: [ Terraform ](https://developer.hashicorp.com/terrafor
 
 
 
-##How to Use:
+## Description
 
 Clone the repo on your machine
 ```
